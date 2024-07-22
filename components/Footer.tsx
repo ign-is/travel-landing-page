@@ -17,7 +17,7 @@ const Footer = () => {
                             <FooterColumn title={columns.title}>
                                 <ul className="regular-14 flex flex-col gap-4 text-gray-30">
                                     {columns.links.map((link) => (
-                                        <Link href="/" key={link}>
+                                        <Link href="/" key={link} className="hover:text-gray-700">
                                             {link}
                                         </Link>
                                     ))}
@@ -48,7 +48,7 @@ const Footer = () => {
                             <FooterColumn title={SOCIALS.title}>
                                 <ul className="regular-14 flex gap-4 text-gray-30">
                                     {SOCIALS.links.map((link) => (
-                                        <Link href="/" key={link}>
+                                        <Link href="/" key={link} className="rounded-full hover:bg-green-50">
                                             <Image src={link} alt="logo" width={24} height={24} className="w-full h-auto" />
                                         </Link>
                                     ))}
