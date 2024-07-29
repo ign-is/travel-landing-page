@@ -1,9 +1,18 @@
+"use client"
 import { NAV_LINKS } from "@/constants"
 import Image from "next/image"
 import Link from "next/link"
 import Button from "./Button"
+import { useState } from "react";
 
 const Navbar = () => {
+
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+    const toggleMobileMenu = () => {
+        setIsMobileMenuOpen(!isMobileMenuOpen);
+    }
+
     return (
         <nav className="flexBetween max-container padding-container relative z-30 py-5">
             <Link href="/">
@@ -27,13 +36,40 @@ const Navbar = () => {
                 />
             </div>
 
-            <Image 
-                src="menu.svg"
-                alt="menu"
-                width={32}
-                height={32}
-                className="inline-block cursor-pointer lg:hidden"
-            />
+            <div className="lg:hidden z-20">
+                <button onClick={toggleMobileMenu}>
+                    {isMobileMenuOpen ? 
+                     <Image 
+                        src="/close-icon.png"
+                        alt="close"
+                        width={32}
+                        height={32}
+                        className="inline-block cursor-pointer lg:hidden"
+                    /> :
+                    <Image 
+                        src="menu.svg"
+                        alt="menu"
+                        width={32}
+                        height={32}
+                        className="inline-block cursor-pointer lg:hidden"
+                    /> 
+                }
+                </button>
+            </div>
+
+            {isMobileMenuOpen && (
+            <div className="w-60 h-screen pt-20 bg-white lg:hidden absolute top-0 right-0 z-10 flex-1 flex flex-col shadow-2xl">
+                    {NAV_LINKS.map((link) => (
+                    <Link 
+                        href={link.href} 
+                        key={link.key} 
+                        className="p-4 pl-8 uppercase tracking-tighter text-xl cursor-pointer transition-all hover:font-bold"
+                    >
+                        {link.label}
+                    </Link>
+                ))}
+            </div>
+            )}
         </nav>
     )
 }
